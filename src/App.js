@@ -23,14 +23,14 @@ class App extends Component {
       var bin;
       if(asc){
         for(bin=minBin; bin<=maxBin; bin++) {
-          lineArr.push(aisle+'-'+bin);
-          lineArr.push((aisle + 1)+'-'+bin);
+          lineArr.push('R'+aisle+'*'+bin);
+          lineArr.push(('R'+aisle + 1)+'*'+bin);
         }
         asc = false;
       } else {
         for(bin=maxBin; bin>=minBin; bin--) {
-          lineArr.push(aisle+'-'+bin);
-          lineArr.push((aisle + 1)+'-'+bin);
+          lineArr.push('R'+aisle+'*'+bin);
+          lineArr.push(('R'+aisle + 1)+'*'+bin);
         }
         asc = true;
       }

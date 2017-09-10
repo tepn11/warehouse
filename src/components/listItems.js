@@ -10,7 +10,7 @@ class ListItems extends Component {
 
   render() {
     let listItems = this.props.listItems.map((item, i) =>
-      <ListGroupItem>{item}</ListGroupItem>
+      <ListGroupItem key={i}>{item}</ListGroupItem>
     );
     return (
       <div >
