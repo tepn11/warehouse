@@ -12,12 +12,23 @@
   font-size: large;
 }
 
+.App-input textarea {
+  height: 100px;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: -webkit-fill-available;
+}
+
 .App-title {
   font-size: 2em;
 }
 
 .App-list ul {
   list-style-type: none;
+}
+
+.App-table-header {
+  font-weight: bold;
 }
 
 @keyframes App-logo-spin {

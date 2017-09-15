@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Table } from 'react-bootstrap';
 import '../App.css';
+import RowItem from './rowItem'
 
 
 class ListItems extends Component {
@@ -9,14 +10,27 @@ class ListItems extends Component {
   }
 
   render() {
-    let listItems = this.props.listItems.map((item, i) =>
-      <ListGroupItem key={i}>{item}</ListGroupItem>
-    );
+    let listItemsV2 = '';
+    if(this.props.listItems.length > 0) {
+      listItemsV2 = this.props.listItems.map((items,x) =>
+        <RowItem key={x} items={items} rowNum={x}/>
+      );
+    }
     return (
       <div >
-        <ListGroup>
-          {listItems}
-        </ListGroup>
+        <Table responsive>
+          <thead>
+            <tr>
+              <td className='App-table-header'>SKU</td>
+              <td className='App-table-header'>Title</td>
+              <td className='App-table-header'>Expected</td>
+              <td className='App-table-header'>id</td>
+            </tr>
+          </thead>
+          <tbody>
+            {listItemsV2}
+          </tbody>
+        </Table>
       </div>
     );
   }

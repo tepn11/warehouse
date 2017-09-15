@@ -1,7 +1,7 @@
 import React, { Component, ReactDOM } from 'react';
 import './App.css';
 import { Button } from 'react-bootstrap';
-import Query from './components/query';
+import Sort from './components/sort';
 import ListItems from './components/listItems'
 
 class App extends Component {
@@ -24,13 +24,13 @@ class App extends Component {
       if(asc){
         for(bin=minBin; bin<=maxBin; bin++) {
           lineArr.push('R'+aisle+'*'+bin);
-          lineArr.push(('R'+aisle + 1)+'*'+bin);
+          lineArr.push(('R'+(aisle + 1))+'*'+bin);
         }
         asc = false;
       } else {
         for(bin=maxBin; bin>=minBin; bin--) {
           lineArr.push('R'+aisle+'*'+bin);
-          lineArr.push(('R'+aisle + 1)+'*'+bin);
+          lineArr.push(('R'+(aisle + 1))+'*'+bin);
         }
         asc = true;
       }
@@ -42,7 +42,6 @@ class App extends Component {
   calculate(){
     let unsorted = this.state.items;
     let sorted = [];
-
 
     for (let i = 0; i < unsorted.length; i++){
       sorted[this.lineArr.indexOf(unsorted[i])] = unsorted[i];
@@ -60,11 +59,29 @@ class App extends Component {
     this.calculate();
   }
 
-
   handleAddItem = (val) => {
-    let itemsArr = this.state.items;
-    itemsArr.push(val);
-    this.setState({ items: itemsArr });
+    this.setState({ items: val }, this.calculateV2);
+  }
+
+  calculateV2(){
+    let appThis = this;
+    let unsorted = this.state.items;
+    let sorted = [];
+
+    if (unsorted.size > 0){
+      unsorted.forEach(function(v,k){
+        console.log(v);
+        console.log(k);
+        sorted[appThis.lineArr.indexOf(k)] = v;
+      });
+    }
+
+    sorted = sorted.filter(n => true);
+    console.log("Sorted", this.sorted);
+
+    this.setState({
+      sortedItems: sorted
+    });
   }
 
   render() {
@@ -76,9 +93,7 @@ class App extends Component {
         </div>
         <div id="App-body">
           <form >
-            <Query addItem={this.handleAddItem} />
-            <ListItems listItems={this.state.items}/>
-            <Button bsStyle="primary" bsSize="large" type="button" onClick={this.handleClick}>Sort</Button>
+            <Sort addItem={this.handleAddItem} />
             <ListItems listItems={this.state.sortedItems}/>
           </form>
         </div>

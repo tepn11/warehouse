@@ -3,7 +3,7 @@ import { Button, FormGroup, ControlLabel, FormControl  } from 'react-bootstrap';
 import '../App.css';
 
 
-class Query extends Component {
+class Sort extends Component {
   constructor(props) {
     super(props);
     this.state = {value: ''};
@@ -30,15 +30,15 @@ class Query extends Component {
   render() {
     return (
       <div>
-        <FormGroup controlId="formControlsTextarea">
+        <FormGroup controlId="formControlsTextarea" className="App-input">
           <ControlLabel>Input</ControlLabel>
           <FormControl componentClass="textarea" placeholder="Insert query here..."
                        value={this.state.value} onChange={this.handleChange} />
         </FormGroup>
-        <Button bsStyle="primary" bsSize="large" onClick={this.handleClick}>Add</Button>
+        <Button bsStyle="primary" bsSize="large" onClick={this.handleClick}>Sort</Button>
     </div>
     );
   }
 }
 
-export default Query;
+export default Sort;

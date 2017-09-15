@@ -23,3 +23,4 @@ yarn-error.log*
 .idea/dictionaries/*
 .idea/inspectionProfiles/*
 .idea/jsLinters/*
+.vscode/settings.json
