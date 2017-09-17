@@ -9,9 +9,13 @@ class RowItem extends Component {
     let items = this.props.items;
     let row = <td></td>;
     if(items){
-      row = items.map((val,i) => 
-        <td key={this.props.rowNum + i}>{val}</td>
-      )
+      if(typeof items === 'object'){
+        row = items.map((val,i) => 
+            <td key={this.props.rowNum + i}>{val}</td>
+        )
+      } else if(typeof items === 'string'){
+        row = <td colSpan='3' className='row-actions'>{items}</td>
+      }
     }
     return (
       <tr>{row}</tr>

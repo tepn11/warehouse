@@ -7,7 +7,7 @@ import ListItems from './components/listItems'
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { items: [], sortedItems: [] };
+    this.state = { items: [], sortedItems: [], formattedSort: [] };
     this.initArray();
   }
 
@@ -18,25 +18,37 @@ class App extends Component {
     var maxAisle = 320;
     var minBin = 100;
     var maxBin = 540;
+    var lineMap = new Map();
 
     for(var aisle = minAisle; aisle < maxAisle; aisle += 2) {
       var bin;
+      var binObj = {
+        asc: asc,
+        aisle: aisle
+      };
       if(asc){
         for(bin=minBin; bin<=maxBin; bin++) {
+          binObj.bin = bin;
           lineArr.push('R'+aisle+'*'+bin);
+          lineMap.set('R'+aisle+'*'+bin, binObj);
           lineArr.push(('R'+(aisle + 1))+'*'+bin);
+          lineMap.set(('R'+(aisle + 1))+'*'+bin, binObj);
         }
         asc = false;
       } else {
         for(bin=maxBin; bin>=minBin; bin--) {
-          lineArr.push('R'+aisle+'*'+bin);
-          lineArr.push(('R'+(aisle + 1))+'*'+bin);
+          binObj.bin = bin;
+          lineArr.push('R'+aisle+'*'+bin); 
+          lineMap.set('R'+aisle+'*'+bin, binObj);
+          lineArr.push(('R'+(aisle + 1))+'*'+bin); 
+          lineMap.set(('R'+(aisle + 1))+'*'+bin, binObj);
         }
         asc = true;
       }
     }
 
     this.lineArr = lineArr;
+    this.lineMap = lineMap;
   }
 
   calculate(){
@@ -70,8 +82,9 @@ class App extends Component {
 
     if (unsorted.size > 0){
       unsorted.forEach(function(v,k){
-        console.log(v);
-        console.log(k);
+        // console.log(v);
+        // console.log(k);
+        v.push(k);
         sorted[appThis.lineArr.indexOf(k)] = v;
       });
     }
@@ -79,8 +92,30 @@ class App extends Component {
     sorted = sorted.filter(n => true);
     console.log("Sorted", this.sorted);
 
+    let formattedSort = [];
+    let prev;
+    sorted.forEach(function(v,i){
+      let binData = appThis.lineMap.get(v[4]);
+      // console.log(binData);
+      if(prev && prev.asc === binData.asc && prev.aisle !== binData.aisle){
+        formattedSort.push('Go to row: '+(binData.aisle - 2));
+        formattedSort.push('Exit row: '+(binData.aisle - 2));
+        formattedSort.push('Go to row: '+binData.aisle);
+      } else if(prev && prev.aisle === binData.aisle){
+        formattedSort.push('Continue row: '+binData.aisle);
+      } else if(!prev || binData){
+        formattedSort.push('Go to row: '+binData.aisle);
+      }
+      formattedSort.push('Get item from ' + v[3]);
+      delete v[2];
+      delete v[4];
+      formattedSort.push(v);
+      prev = binData;
+    });
+
     this.setState({
-      sortedItems: sorted
+      sortedItems: sorted,
+      formattedSort: formattedSort
     });
   }
 
@@ -94,7 +129,7 @@ class App extends Component {
         <div id="App-body">
           <form >
             <Sort addItem={this.handleAddItem} />
-            <ListItems listItems={this.state.sortedItems}/>
+            <ListItems listItems={this.state.formattedSort}/>
           </form>
         </div>
       </div>

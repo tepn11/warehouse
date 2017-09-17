@@ -31,6 +31,10 @@
   font-weight: bold;
 }
 
+.row-actions {
+  background-color: #b9e0e6;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
