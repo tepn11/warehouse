@@ -23,7 +23,8 @@ class ListItems extends Component {
             <tr>
               <td className='App-table-header'>SKU</td>
               <td className='App-table-header'>Title</td>
-              <td className='App-table-header'>id</td>
+              <td className='App-table-header'>Expected ship date</td>
+              <td className='App-table-header'>Scannable ID</td>
             </tr>
           </thead>
           <tbody>

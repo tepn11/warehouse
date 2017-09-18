@@ -32,7 +32,17 @@
 }
 
 .row-actions {
-  background-color: #b9e0e6;
+  font-size: 1.4em;
+}
+
+.input-txt {
+  margin-top: 5px;
+}
+
+.input-eg-txt {
+  font-size: .9em;
+  color: #9ea2a5;
+  padding-bottom: 5px;
 }
 
 @keyframes App-logo-spin {

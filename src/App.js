@@ -17,7 +17,7 @@ class App extends Component {
     var minAisle = 101;
     var maxAisle = 320;
     var minBin = 100;
-    var maxBin = 540;
+    var maxBin = 550;
     var lineMap = new Map();
 
     for(var aisle = minAisle; aisle < maxAisle; aisle += 2) {
@@ -82,10 +82,13 @@ class App extends Component {
 
     if (unsorted.size > 0){
       unsorted.forEach(function(v,k){
-        // console.log(v);
-        // console.log(k);
         v.push(k);
-        sorted[appThis.lineArr.indexOf(k)] = v;
+        let matchedIndex = appThis.lineArr.indexOf(k);
+        if(matchedIndex){
+          sorted[matchedIndex] = v;
+        } else {
+          console.log('Not matched', k);
+        }
       });
     }
 
@@ -96,18 +99,10 @@ class App extends Component {
     let prev;
     sorted.forEach(function(v,i){
       let binData = appThis.lineMap.get(v[4]);
-      // console.log(binData);
       if(prev && prev.asc === binData.asc && prev.aisle !== binData.aisle){
-        formattedSort.push('Go to row: '+(binData.aisle - 2));
-        formattedSort.push('Exit row: '+(binData.aisle - 2));
-        formattedSort.push('Go to row: '+binData.aisle);
-      } else if(prev && prev.aisle === binData.aisle){
-        formattedSort.push('Continue row: '+binData.aisle);
-      } else if(!prev || binData){
-        formattedSort.push('Go to row: '+binData.aisle);
+        formattedSort.push('Go to next available aisle');
       }
-      formattedSort.push('Get item from ' + v[3]);
-      delete v[2];
+      // delete v[2];
       delete v[4];
       formattedSort.push(v);
       prev = binData;
