@@ -14,7 +14,7 @@ class RowItem extends Component {
             <td key={this.props.rowNum + i}>{val}</td>
         )
       } else if(typeof items === 'string'){
-        row = <td colSpan='4' className='row-actions'>{items}</td>
+        row = <td colSpan='5' className='row-actions'>{items}</td>
       }
     }
     return (

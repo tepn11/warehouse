@@ -79,13 +79,19 @@ class App extends Component {
     let appThis = this;
     let unsorted = this.state.items;
     let sorted = [];
+    let counter = 0;
 
-    if (unsorted.size > 0){
+    if (unsorted.length > 0){
       unsorted.forEach(function(v,k){
-        v.push(k);
-        let matchedIndex = appThis.lineArr.indexOf(k);
+        let value = v.lineValues;
+        value.push(v.matchedI);
+        let matchedIndex = appThis.lineArr.indexOf(v.matchedI);
         if(matchedIndex){
-          sorted[matchedIndex] = v;
+          if(!sorted[matchedIndex]) {
+            sorted[matchedIndex] = [];
+          }
+          sorted[matchedIndex].push(v);
+
         } else {
           console.log('Not matched', k);
         }
@@ -97,15 +103,19 @@ class App extends Component {
 
     let formattedSort = [];
     let prev;
-    sorted.forEach(function(v,i){
-      let binData = appThis.lineMap.get(v[4]);
-      if(prev && prev.asc === binData.asc && prev.aisle !== binData.aisle){
-        formattedSort.push('Go to next available aisle');
-      }
-      // delete v[2];
-      delete v[4];
-      formattedSort.push(v);
-      prev = binData;
+    sorted.forEach(function(sortedValArr,i){
+      sortedValArr.forEach(function(v,i) {
+        let binData = appThis.lineMap.get(v.lineValues[4]);
+        if (prev && prev.asc === binData.asc && prev.aisle !== binData.aisle) {
+          formattedSort.push('Go to next available aisle');
+        }
+        counter += 1;
+        // delete v[2];
+        delete v.lineValues[4];
+        v.lineValues.unshift(counter);
+        formattedSort.push(v.lineValues);
+        prev = binData;
+      });
     });
 
     this.setState({

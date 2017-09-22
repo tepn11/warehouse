@@ -21,6 +21,7 @@ class ListItems extends Component {
         <Table responsive>
           <thead>
             <tr>
+              <td className='App-table-header'></td>
               <td className='App-table-header'>SKU</td>
               <td className='App-table-header'>Title</td>
               <td className='App-table-header'>Expected ship date</td>
