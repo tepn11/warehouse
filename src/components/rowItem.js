@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
 class RowItem extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     let items = this.props.items;

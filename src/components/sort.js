@@ -21,7 +21,7 @@ class Sort extends Component {
       let matchedQ = rawValue.match(/R\d{3}[a-zA-Z]\d{3}/);
       if (matchedQ) {
         let lineValues = rawValue.split("\t");
-        let matchedI = matchedQ[0].replace(/./g, (c, i) => i == 4? '*': c);
+        let matchedI = matchedQ[0].replace(/./g, (c, i) => i === 4? '*': c);
         unsorted.set(matchedI,lineValues);
       } else {
         console.log('Not matched', rawValue);
@@ -39,7 +39,7 @@ class Sort extends Component {
       let matchedQ = rawValue.match(/R\d{3}[a-zA-Z]\d{3}/);
       if (matchedQ) {
         let lineValues = rawValue.split("\t");
-        let matchedI = matchedQ[0].replace(/./g, (c, i) => i == 4? '*': c);
+        let matchedI = matchedQ[0].replace(/./g, (c, i) => i === 4? '*': c);
         unsorted.push({matchedI: matchedI, lineValues: lineValues});
       } else {
         console.log('Not matched', rawValue);

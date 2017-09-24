@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import { ListGroup, ListGroupItem, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import '../App.css';
 import RowItem from './rowItem'
 
 
 class ListItems extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     let listItemsV2 = '';
